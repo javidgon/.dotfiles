@@ -25,14 +25,14 @@ sudo gem install tmuxinator
 
 # Setup configurations.
 echo "3) Configuring .dotfiles and settings."
-if [ -d .vim/.vimrc ]
+if [ -d .vim ]
 then
     echo "* VIM: Install Vim folder (plugins, scripts...) in ~/ ..."
     # Copy vim folder into the user directory.
     cp -rf .vim/ ~/.vim
     echo "* VIM: Create symbolic link of .vimrc"
     # Create symbolic link of .vimrc.
-    sudo ln -s ~/.vim/.vimrc ~/.vimrc
+    sudo ln -s -f ~/.vim/.vimrc ~/.vimrc
 fi
 
 if [ -d .tmuxinator/ ]
@@ -41,6 +41,12 @@ then
     export EDITOR="vim"
 
     echo "* TMUXINATOR: Configuring predefined sessions"
-    sudo ln -s -f .tmuxinator/sessions/* ~/.tmuxinator/
+    if [ -d ~/.tmuxinator/ ]
+    then
+        sudo ln -s -f .tmuxinator/sessions/* ~/.tmuxinator/
+    else
+        mkdir ~/.tmuxinator
+        sudo ln -s -f .tmuxinator/sessions/* ~/.tmuxinator/
+    fi
     sudo ln -s -f .tmuxinator/.tmux.conf ~/.tmux.conf
 fi
