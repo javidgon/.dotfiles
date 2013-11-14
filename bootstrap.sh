@@ -29,10 +29,10 @@ if [ -d .vim ]
 then
     echo "* VIM: Install Vim folder (plugins, scripts...) in ~/ ..."
     # Copy vim folder into the user directory.
-    cp -rf .vim/ ~/.vim
+    sudo ln -s -f `pwd`/.vim/ ~/
     echo "* VIM: Create symbolic link of .vimrc"
     # Create symbolic link of .vimrc.
-    sudo ln -s -f ~/.vim/.vimrc ~/.vimrc
+    sudo ln -s -f `pwd`/.vim/.vimrc ~/.vimrc
 fi
 
 if [ -d .tmuxinator/ ]
@@ -43,10 +43,15 @@ then
     echo "* TMUXINATOR: Configuring predefined sessions"
     if [ -d ~/.tmuxinator/ ]
     then
-        sudo ln -s -f .tmuxinator/sessions/* ~/.tmuxinator/
+        echo "* TMUXINATOR: '~/.tmuxinator' folder already exist, I don't need to create it ..."
     else
+        echo "* TMUXINATOR: '~/.tmuxinator' folder does not exist, I will have to create it ..."
         mkdir ~/.tmuxinator
-        sudo ln -s -f .tmuxinator/sessions/* ~/.tmuxinator/
     fi
-    sudo ln -s -f .tmuxinator/.tmux.conf ~/.tmux.conf
+    # Sessions to install.
+    echo "* TMUXINATOR: Deploy different sessions."
+    sudo ln -s -f `pwd`/.tmuxinator/sessions/dev.yml ~/.tmuxinator/
+    # Deploy .tmux.conf
+    echo "* TMUXINATOR: Create symbolic link of .tmux.conf"
+    sudo ln -s -f `pwd`/.tmuxinator/.tmux.conf ~/.tmux.conf
 fi
