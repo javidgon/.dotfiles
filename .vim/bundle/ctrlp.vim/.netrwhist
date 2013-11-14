@@ -1,11 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/home/jaivdgon/Projects'
-let g:netrw_dirhist_2='/home/javidgon'
-let g:netrw_dirhist_3='/home/javidgon/.virtualenvs/tpe/bin'
-let g:netrw_dirhist_4='/home/javidgon/Projects/tpe/tpe/apps/api_es/elasticsearch'
-let g:netrw_dirhist_5='/home/javidgon/Projects/django-gevent-dashboard/dgd/dashboard'
-let g:netrw_dirhist_6='/home/javidgon/Projects/tpe/deployment/salt/state/green_appserver'
-let g:netrw_dirhist_7='/home/javidgon/Projects/tpe/deployment/salt/state/socketio_dev'
-let g:netrw_dirhist_8='/home/javidgon/Projects/tpe/tpe/services/socketio'
-let g:netrw_dirhist_9='/home/javidgon/Projects/tpe/deployment/salt/state/webserver_dev'
+let g:netrw_dirhist_cnt =0
