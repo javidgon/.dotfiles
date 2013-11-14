@@ -1,0 +1,36 @@
+# ~/.tmuxinator/dev.yml
+
+name: dev
+root: ~/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+pre: find . -name "*.pyc" -exec rm -rf {} \;
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+#pre_window: workon xxx
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+windows:
+  - editor:
+      layout: 8dac,213x62,0,0{139x62,0,0,32,73x62,140,0[73x31,140,0,34,73x30,140,32,35]}
+      panes:
+        - vim
+        - 
+        -
+  - playground:
+      layout: tiled 
+      panes:
+        -
+        -
+        -
+        -
+  - logs:
+      layout: tiled 
+      panes:
+        -
+        -

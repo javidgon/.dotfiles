@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/javidgon/Backend/dowant/dowant/media/js'
+let g:netrw_dirhist_2='/home/javidgon/django-projects/mexico/dowant/cart/views'
+let g:netrw_dirhist_3='/home/javidgon/django-projects/mexico/dowant/templates/whitelabel/benedettis'
+let g:netrw_dirhist_4='/home/javidgon/django-projects/mexico/dowant/media/whitelabel/benedettis/css'
+let g:netrw_dirhist_5='/home/javidgon/django-projects/mexico/dowant/halpers/management/commands'
+let g:netrw_dirhist_6='/home/javidgon/django-projects/mexico/dowant/location_picker'
