@@ -2,11 +2,11 @@
 
 #
 # Bootstrap for setting remote development environments.
-# Version 0.0.1
+# Version 0.0.2
 
 echo "************************************************"
 echo "*         Dotfiles bootstrap file (Development)"
-echo "*         Version: 0.0.1"
+echo "*         Version: 0.0.2"
 echo "*         Author: Jose Vidal"
 echo "*         License: MIT"
 echo "************************************************"
@@ -17,7 +17,22 @@ sudo apt-get install vim
 sudo apt-get install tmux
 sudo apt-get install rubygems
 sudo apt-get install ruby1.9.3
-sudo apt-get install exuberant-ctags 
+sudo apt-get install exuberant-ctags
+
+# Install vim bar symbols.
+wget https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf
+mv PowerlineSymbols.otf ~/.fonts/
+fc-cache -vf ~/.fonts/
+
+# Install auto-format for python and javascript.
+sudo apt-get install python-autopep8
+sudo apt-get install npm nodejs
+sudo npm install -g js-beautify
+
+# Install all plugins.
+mkdir ~/.vim/bundle
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
 
 # Install required gems.
 echo "2) Fetching gems: Tmuxinator..."

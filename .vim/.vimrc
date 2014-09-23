@@ -1,18 +1,44 @@
 " @Author: Jose Vidal
-" @Version: 1.0.1
+" @Version: 1.0.2
 " @Last Update: 8/8/2013
 
-" 0.- Run Pathogen.
-call pathogen#infect('~/.vim/bundle/{}')
-set runtimepath^=~/.vim/bundle/ctrlp.vim
+" 0.- Run Vundler.
+set rtp+=~/.vim/bundle/Vundle.vim
+set tags=./tags;/
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-surround'
+Plugin 'Raimondi/delimitMate'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'sjl/gundo.vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
+Plugin 'jaxbot/brolink.vim.git'
+Plugin 'morhetz/gruvbox'
+Plugin 'zeis/vim-kolor'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'mattn/emmet-vim'
+Plugin 'suxpert/vimcaps'
+Plugin 'bling/vim-airline'
+
+call vundle#end()
+filetype plugin indent on
 
 " 1.- Set Theme.
 let &t_Co=256
-colorscheme molokai
-set background=light
-set guifont=DejaVu\ Sans\ Mono\ 12
+syntax enable
+colorscheme molokai 
+set guifont=Inconsolata\ 12
 
 " 2.- Set Filetypes.
+syntax on
 filetype on
 filetype plugin on
 filetype indent on
@@ -26,12 +52,14 @@ set hidden
 set nobackup
 set noswapfile
 set visualbell
-syntax on
 set smartindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
 set wildmenu
+set mouse=a
+set pastetoggle=<F3>
+set laststatus=2
 
 " 4.- Mapping.
 :let mapleader = ","
@@ -43,23 +71,26 @@ nnoremap <leader>m :CtrlPMRU<CR>
 nnoremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>t :CtrlPMixed<CR>
 nnoremap <leader>g :Gblame<CR>
-nnoremap <leader>x :bd<CR>
+nnoremap <leader>x :q!<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>v :vsplit<CR>
 nnoremap <leader>h :split<CR>
+nnoremap <leader>c :tag 
 nnoremap nn :w<CR>
-nnoremap <leader>c :TlistToggle<CR>
+nnoremap ;q :q
+nnoremap :Q :q
+nnoremap ;w :w
+nnoremap :W :w
 nnoremap <C-t> :tabnew<CR>
 nnoremap <C-x> :tabclose<CR>
-nnoremap <C-v> :vsplit<CR>
-nnoremap <C-b> :split<CR>
 nnoremap <C-z> :q<CR>
 nnoremap <F5> :bp<CR>
 nnoremap <F6> :bn<CR>
 nnoremap <F7> :tabp<CR>
 nnoremap <F8> :tabn<CR>
 nnoremap <F2> :SyntasticCheck<CR>
+nnoremap <F9> :GundoToggle<CR>
 cnoremap w!! w !sudo tee % >/dev/null
 inoremap jj <esc>
 
@@ -79,17 +110,38 @@ map <Down> <Nop>
 iabbrev adn and
 
 " 6.- Specific Plugin's Configuration.
-let g:ctrlp_working_path_mode = 'r'
-let g:syntastic_javascript_checkers = ['jslint']
-augroup vimrc_autocmds
-    autocmd!
-    " highlight characters past column 80
-    autocmd FileType python highlight Excess ctermbg=Red guibg=Black
-    autocmd FileType python match Excess /\%80v.*/
-    autocmd FileType python set nowrap
-augroup END
+
+au InsertLeave * write
 
 set makeprg=jslint\ %
 set errorformat=%-P%f,
         \%E%>\ #%n\ %m,%Z%.%#Line\ %l\\,\ Pos\ %c,
         \%-G%f\ is\ OK.,%-Q
+
+function! g:UltiSnips_Complete()
+    call UltiSnips#ExpandSnippet()
+    if g:ulti_expand_res == 0
+        if pumvisible()
+            return "\<C-n>"
+        else
+            call UltiSnips#JumpForwards()
+            if g:ulti_jump_forwards_res == 0
+               return "\<TAB>"
+            endif
+        endif
+    endif
+    return ""
+endfunction
+
+au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-e>"
+let g:UltiSnipsSnippetDirectories=["bundle/UltiSnips"]
+
+""""""""""""""""""""""""""""""
+" airline
+""""""""""""""""""""""""""""""
+let g:airline_theme             = 'powerlineish'
+let g:airline_enable_branch     = 1
+let g:airline_enable_syntastic  = 1
+let g:airline_powerline_fonts   = 1
