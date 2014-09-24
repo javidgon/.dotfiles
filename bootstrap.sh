@@ -2,18 +2,18 @@
 
 #
 # Bootstrap for setting remote development environments.
-# Version 0.0.3
-
+# Version 0.0.4
 echo "************************************************"
 echo "*         Dotfiles bootstrap file (Development)"
-echo "*         Version: 0.0.3"
+echo "*         Version: 0.0.4"
 echo "*         Author: Jose Vidal"
 echo "*         License: MIT"
 echo "************************************************"
 
+CUR_PWD=`pwd -P` 
+
 # Install required applications.
 echo "1) Installing main libraries: Vim, Tmux and Ruby..."
-CUR_PWD=`pwd`
 sudo apt-get install vim
 sudo apt-get install exuberant-ctags
 sudo apt-get install tmux
@@ -27,10 +27,11 @@ cd ruby-2.0.0-p481/
 ./configure --prefix=/usr/local
 make
 sudo make install
-cd $CUR_PWD
+cd $CUR_PWD 
 
 # Install vim bar symbols.
 wget https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf
+mkdir ~/.fonts
 mv PowerlineSymbols.otf ~/.fonts/
 fc-cache -vf ~/.fonts/
 
@@ -38,11 +39,6 @@ fc-cache -vf ~/.fonts/
 sudo apt-get install python-autopep8
 sudo apt-get install npm nodejs
 sudo npm install -g js-beautify
-
-# Install all plugins.
-mkdir ~/.vim/bundle
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
 
 # Install required gems.
 echo "2) Fetching gems: Teamocil"
@@ -64,16 +60,30 @@ then
     echo "* VIM: Create symbolic link of '~/.vimrc' file..."
     # Create symbolic link of .vimrc.
     sudo ln -s -f `pwd`/.vim/.vimrc ~/.vimrc
+    # Install all plugins.
+    mkdir `pwd`/.vim/bundle
+    git clone https://github.com/gmarik/Vundle.vim.git `pwd`/.vim/bundle/Vundle.vim
+    vim +PluginInstall +qall
 fi
 
 if [ -d .tmux/ ]
 then
-    echo "* TMUX: Create symbolic link of '~/.tmux.conf' file..."
-    sudo ln -s -f `pwd`/.tmux/.tmux.conf ~/.tmux.conf
+    if [ -d ~/.tmux ]
+    then
+        echo "* TMUX: '~/.tmux' folder already exists. I'll replace it, sorry..."
+        rm -rf ~/.tmux
+    fi
+    echo "* TMUX: Create symbolic link of '~/.tmux.conf' folder"
+    sudo ln -s -f `pwd`/.tmux/ ~/
 fi
 
 if [ -d .teamocil/ ]
 then
-    echo "* TEAMOCIL: Import all the teamocil sessions available"
-    sudo cp `pwd`/.teamocil/* ~/.teamocil/
+    if [ -d ~/.teamocil ]
+    then
+        echo "* TEAMOCIL: '~/.teamocil' folder already exists. I'll replace it, sorry..."
+        rm -rf ~/.teamocil
+    fi
+    echo "* TEAMOCIL: Create symbolic link of '~/.teamocil' folder"
+    sudo ln -s -f `pwd`/.teamocil/ ~/
 fi
