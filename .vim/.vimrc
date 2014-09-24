@@ -8,26 +8,24 @@ set rtp+=~/.vim/bundle/Vundle.vim
 set tags=./tags;/
 call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-surround'
-Plugin 'Raimondi/delimitMate'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'sjl/gundo.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
-Plugin 'jaxbot/brolink.vim.git'
-Plugin 'morhetz/gruvbox'
-Plugin 'zeis/vim-kolor'
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'mattn/emmet-vim'
-Plugin 'suxpert/vimcaps'
-Plugin 'bling/vim-airline'
+Plugin 'gmarik/Vundle.vim' "Plugins loader
+Plugin 'tpope/vim-fugitive' "Git wrapper
+Plugin 'kien/ctrlp.vim' "Multi-search tool for MRU files, buffer...
+Plugin 'scrooloose/nerdtree' "Provides vertical files search tree
+Plugin 'scrooloose/syntastic' "Multi-language validator (PEPE8...)
+Plugin 'tpope/vim-surround' "Adds/Removes quotes/parenthesis easily
+Plugin 'Raimondi/delimitMate' "Adds ending quotes/parenthesis automatically
+Plugin 'tomtom/tcomment_vim' "Comments out lines easily
+Plugin 'sjl/gundo.vim' "Shows last changes in a file
+Plugin 'SirVer/ultisnips' "Snippets loader
+Plugin 'honza/vim-snippets' "Collection of snippets
+Plugin 'xolox/vim-misc' "Library of functions
+Plugin 'xolox/vim-easytags' "Provides search by tags functionality
+"Plugin 'jaxbot/brolink.vim.git' "Live browser editing in VIM
+Plugin 'Chiel92/vim-autoformat' "Auto-format for different languages
+Plugin 'mattn/emmet-vim' "Zen style abbreviations in HTML
+Plugin 'suxpert/vimcaps' "Disables caps in Insert Mode
+Plugin 'bling/vim-airline' "Provides a bottom bar with useful data
 
 call vundle#end()
 filetype plugin indent on
