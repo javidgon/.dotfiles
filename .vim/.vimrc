@@ -2,7 +2,7 @@
 " @Version: 1.0.3
 " @Last Update: 8/8/2013
 
-" 0.- Run Vundler.
+" 1.- Plugins ############################################
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 set tags=./tags;/
@@ -24,27 +24,30 @@ Plugin 'xolox/vim-easytags' "Provides search by tags functionality
 "Plugin 'jaxbot/brolink.vim.git' "Live browser editing in VIM
 Plugin 'Chiel92/vim-autoformat' "Auto-format for different languages
 Plugin 'mattn/emmet-vim' "Zen style abbreviations in HTML
-Plugin 'suxpert/vimcaps' "Disables caps in Insert Mode
+"Plugin 'suxpert/vimcaps' "Disables caps in Insert Mode (It has some problems
+"when it's used in a remote machine, that's why it's disabled by default)
 Plugin 'bling/vim-airline' "Provides a bottom bar with useful data
+Plugin 'Yggdroot/indentLine' "Adds visual indentation lines
+Plugin 'terryma/vim-multiple-cursors' "Adds multiple cursor support (like in Sublime Text)
+Plugin 'airblade/vim-gitgutter' "Adds signs whether a certain line has been modified or not
+Plugin 'Shougo/vimproc.vim' "Utility methods required for Vimshell
+Plugin 'Shougo/vimshell.vim' "Includes a shell into VIM
 
 call vundle#end()
 filetype plugin indent on
 
-" 1.- Set Theme.
-let &t_Co=256
-syntax enable
+" 2.- Basic configuration ################################
+let &t_Co=256 "Enable 256 colors
 colorscheme molokai
 set guifont=Inconsolata\ 12
 
-" 2.- Set Filetypes.
-syntax on
+syntax on "Enable syntax highlighting
 
-" 3.- VIM's General Configuration.
-set number
-set history=1000
-set showmode
-set autoread
-set hidden
+set number "Show number line
+set history=1000 "Increase commands history
+set showmode "Show current mode in the bar
+set autoread "Reload files as soon as they change in disk
+set hidden "Hide previous buffer instead than prompt the user
 set nobackup
 set noswapfile
 set visualbell
@@ -57,7 +60,7 @@ set mouse=a
 set pastetoggle=<F3>
 set laststatus=2
 
-" 4.- Mapping.
+" 3.- Mappings ###########################################
 :let mapleader = ","
 
 " Features section
@@ -74,6 +77,8 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>v :vsplit<CR>
 nnoremap <leader>h :split<CR>
 nnoremap <leader>c :tag
+nnoremap <leader>p :VimShellInteractive python<CR>
+nnoremap <leader>j :VimShellInteractive node<CR>
 nnoremap nn :w<CR>
 nnoremap ;q :q
 nnoremap :Q :q
@@ -88,8 +93,10 @@ nnoremap <F7> :tabp<CR>
 nnoremap <F8> :tabn<CR>
 nnoremap <F2> :SyntasticCheck<CR>
 nnoremap <F9> :GundoToggle<CR>
+nnoremap mm :
 cnoremap w!! w !sudo tee % >/dev/null
 inoremap jj <esc>
+inoremap jjj <esc>:q<CR>
 
 " Navigation section
 nnoremap <C-h> <C-w>h
@@ -103,12 +110,12 @@ map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
 
-" 5.- Abbreviations.
+" 4.- Abbreviations #####################################
 iabbrev adn and
 
-" 6.- Specific Plugin's Configuration.
+" 5.- Specific Plugin's Configuration ###################
 
-au InsertLeave * write
+"au InsertLeave * write "Saves the file after leaving the 'Insert' mode.
 
 set makeprg=jslint\ %
 set errorformat=%-P%f,
@@ -118,7 +125,6 @@ set errorformat=%-P%f,
 """"""""""""""""""""""""""""""
 " Ultisnips
 """"""""""""""""""""""""""""""
-
 function! LoadUltisnips()
   if has("python")
     runtime bundle/ultisnips_rep/plugin/UltiSnips.vim
@@ -147,3 +153,8 @@ let g:airline_theme             = 'powerlineish'
 let g:airline_enable_branch     = 1
 let g:airline_enable_syntastic  = 1
 let g:airline_powerline_fonts   = 1
+
+""""""""""""""""""""""""""""""
+" indentLIne
+""""""""""""""""""""""""""""""
+let g:indentLine_color_term = 239
