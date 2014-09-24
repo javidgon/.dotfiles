@@ -1,8 +1,9 @@
 " @Author: Jose Vidal
-" @Version: 1.0.2
+" @Version: 1.0.3
 " @Last Update: 8/8/2013
 
 " 0.- Run Vundler.
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 set tags=./tags;/
 call vundle#begin()
@@ -34,14 +35,11 @@ filetype plugin indent on
 " 1.- Set Theme.
 let &t_Co=256
 syntax enable
-colorscheme molokai 
+colorscheme molokai
 set guifont=Inconsolata\ 12
 
 " 2.- Set Filetypes.
 syntax on
-filetype on
-filetype plugin on
-filetype indent on
 
 " 3.- VIM's General Configuration.
 set number
@@ -70,13 +68,14 @@ nnoremap <leader>f :CtrlP<CR>
 nnoremap <leader>m :CtrlPMRU<CR>
 nnoremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>t :CtrlPMixed<CR>
+nnoremap <leader>d :GundoToggle<CR>
 nnoremap <leader>g :Gblame<CR>
 nnoremap <leader>x :q!<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>v :vsplit<CR>
 nnoremap <leader>h :split<CR>
-nnoremap <leader>c :tag 
+nnoremap <leader>c :tag
 nnoremap nn :w<CR>
 nnoremap ;q :q
 nnoremap :Q :q
@@ -118,25 +117,30 @@ set errorformat=%-P%f,
         \%E%>\ #%n\ %m,%Z%.%#Line\ %l\\,\ Pos\ %c,
         \%-G%f\ is\ OK.,%-Q
 
-function! g:UltiSnips_Complete()
-    call UltiSnips#ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips#JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-               return "\<TAB>"
-            endif
-        endif
-    endif
-    return ""
-endfunction
+""""""""""""""""""""""""""""""
+" Ultisnips
+""""""""""""""""""""""""""""""
 
-au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsListSnippets="<c-e>"
-let g:UltiSnipsSnippetDirectories=["bundle/UltiSnips"]
+function! LoadUltisnips()
+  if has("python")
+    runtime bundle/ultisnips_rep/plugin/UltiSnips.vim
+    exec "set runtimepath+=" . g:p0 . "/bundle/ultisnips_rep"
+    if has("autocmd")
+      autocmd FileType * call UltiSnips_FileTypeChanged()
+      autocmd BufNewFile,BufRead *.snippets setf snippets
+    endif
+    call UltiSnips_FileTypeChanged()
+  endif
+  nnoremap <f10> :call UltiSnips_ListSnippets()<cr>
+endfunction
+nnoremap <f10> :call LoadUltisnips()<cr>:call UltiSnips_ListSnippets()<CR>
+inoremap <f10> <esc>:call LoadUltisnips()<cr>a<c-r>=UltiSnips_ExpandSnippet()<cr>
+
+let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsJumpForwardTrigger="<c-b>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 """"""""""""""""""""""""""""""
 " airline
