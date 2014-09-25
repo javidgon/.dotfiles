@@ -38,7 +38,8 @@ filetype plugin indent on
 
 " 2.- Basic configuration ################################
 let &t_Co=256 "Enable 256 colors
-colorscheme molokai
+set background=dark
+colorscheme gruvbox
 set guifont=Inconsolata\ 12
 
 syntax on "Enable syntax highlighting
