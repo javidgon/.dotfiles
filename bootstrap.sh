@@ -20,10 +20,7 @@ fi
 if [[ -d .vim  &&  $1 == 'vim' ]]
 then
     echo "1) Installing VIM"
-    sudo apt-get install vim
-    sudo apt-get install exuberant-ctags
-    sudo apt-get install python-autopep8
-    sudo apt-get install npm nodejs
+    sudo apt-get install -y vim exuberant-ctags python-autopep8 npm nodejs gcc
     sudo npm install -g js-beautify
 
     # Install vim bar symbols.
@@ -40,10 +37,10 @@ then
     fi
     # Copy vim folder into the user directory.
     echo "* VIM: Create symbolic link of '~/.vim' folder..."
-    sudo ln -s -f `pwd`/.vim/ ~/
+    ln -s -f `pwd`/.vim/ ~/
     echo "* VIM: Create symbolic link of '~/.vimrc' file..."
     # Create symbolic link of .vimrc.
-    sudo ln -s -f `pwd`/.vim/.vimrc ~/.vimrc
+    ln -s -f `pwd`/.vim/.vimrc ~/.vimrc
     # Install all plugins.
     mkdir `pwd`/.vim/bundle
     git clone https://github.com/gmarik/Vundle.vim.git `pwd`/.vim/bundle/Vundle.vim
@@ -57,9 +54,8 @@ fi
 if [[ -d .tmux/ && $1 == 'tmux' ]]
 then
     echo "1) Installing TMUX and TEAMOCIL"
-    sudo apt-get install tmux
     # Install ruby 2.0 and rubygems.
-    sudo apt-get install rubygems
+    sudo apt-get install -y tmux rubygems
     cd /tmp
     wget http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p481.tar.gz
     tar -xvzf ruby-2.0.0-p481.tar.gz
@@ -78,7 +74,7 @@ then
         rm -rf ~/.tmux
     fi
     echo "* TMUX: Create symbolic link of '~/.tmux.conf' folder"
-    sudo ln -s -f `pwd`/.tmux/ ~/
+    ln -s -f `pwd`/.tmux/ ~/
 
     if [ -d .teamocil/ ]
     then
@@ -88,6 +84,6 @@ then
             rm -rf ~/.teamocil
         fi
         echo "* TEAMOCIL: Create symbolic link of '~/.teamocil' folder"
-        sudo ln -s -f `pwd`/.teamocil/ ~/
+        ln -s -f `pwd`/.teamocil/ ~/
     fi
 fi
