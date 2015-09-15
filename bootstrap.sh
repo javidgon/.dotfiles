@@ -1,10 +1,8 @@
 #!/bin/bash
 
-set -e
-
 #
 # Bootstrap for setting remote development environments.
-# Version 0.0.4
+# Version 0.0.5
 echo "************************************************"
 echo "*         Dotfiles bootstrap file (Development)"
 echo "*         Version: 0.0.5"
@@ -26,7 +24,8 @@ sudo apt-get -y install ack-grep
 if [[ -d .vim  && ($1 == 'vim' || $1 == 'all') ]]
 then
     echo "1) Installing VIM"
-    sudo apt-get install -y vim exuberant-ctags python-autopep8 npm nodejs gcc
+    sudo apt-get install -y vim exuberant-ctags python-autopep8 gcc
+    curl -sL https://deb.nodesource.com/setup | sudo bash -
     sudo npm install -g js-beautify
 
     # Install vim bar symbols.
@@ -36,23 +35,25 @@ then
     fc-cache -vf ~/.fonts/
 
     echo "* VIM: Install Vim folder (plugins, scripts...) in ~/ ..."
-    if [ -d ~/.vim ]
+    if [[ -d ~/.vim ]]
     then
         echo "* VIM: '~/.vim' folder already exists. I'll replace it, sorry..."
         rm -rf ~/.vim
     fi
     # Copy vim folder into the user directory.
     echo "* VIM: Create symbolic link of '~/.vim' folder..."
-    ln -s -f `pwd`/.vim/ ~/
+    ln -s -f $(pwd)/.vim/ ~/
     echo "* VIM: Create symbolic link of '~/.vimrc' file..."
     # Create symbolic link of .vimrc.
-    ln -s -f `pwd`/.vim/.vimrc ~/.vimrc
+    ln -s -f $(pwd)/.vim/.vimrc ~/.vimrc
     # Install all plugins.
-    mkdir `pwd`/.vim/bundle
-    git clone https://github.com/gmarik/Vundle.vim.git `pwd`/.vim/bundle/Vundle.vim
+    echo "* VIM: Installing all plugins..."
+    mkdir $(pwd)/.vim/bundle
+    git clone https://github.com/gmarik/Vundle.vim.git $(pwd)/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
+    echo "* VIM: Compiling plugins..."
     # Compilation required for Vimshell.
-    cd `pwd`/.vim/bundle/vimproc.vim/
+    cd $(pwd)/.vim/bundle/vimproc.vim/
     make
     cd $CUR_PWD
 fi
@@ -74,22 +75,22 @@ then
     # Install required gems.
     sudo gem install teamocil
 
-    if [ -d ~/.tmux ]
+    if [[ -d ~/.tmux ]]
     then
         echo "* TMUX: '~/.tmux' folder already exists. I'll replace it, sorry..."
         rm -rf ~/.tmux
     fi
     echo "* TMUX: Create symbolic link of '~/.tmux.conf' folder"
-    ln -s -f `pwd`/.tmux/ ~/
+    ln -s -f $(pwd)/.tmux/ ~/
 
-    if [ -d .teamocil/ ]
+    if [[ -d .teamocil/ ]]
     then
-        if [ -d ~/.teamocil ]
+        if [[ -d ~/.teamocil ]]
         then
             echo "* TEAMOCIL: '~/.teamocil' folder already exists. I'll replace it, sorry..."
             rm -rf ~/.teamocil
         fi
         echo "* TEAMOCIL: Create symbolic link of '~/.teamocil' folder"
-        ln -s -f `pwd`/.teamocil/ ~/
+        ln -s -f $(pwd)/.teamocil/ ~/
     fi
 fi
