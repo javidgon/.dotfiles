@@ -10,5 +10,6 @@ Dotfiles and libraries used for setting up quickly remote environments for devel
 
 ## Installation:
 ```bash
-cd .dotfiles && ./bootstrap.sh
+# In <option> you can choose either: all, vim or tmux
+cd .dotfiles && ./bootstrap.sh <option>
 ```

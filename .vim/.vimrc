@@ -20,7 +20,7 @@ Plugin 'sjl/gundo.vim' "Shows last changes in a file
 Plugin 'SirVer/ultisnips' "Snippets loader
 Plugin 'honza/vim-snippets' "Collection of snippets
 Plugin 'xolox/vim-misc' "Library of functions
-Plugin 'xolox/vim-easytags' "Provides search by tags functionality
+"Plugin 'xolox/vim-easytags' "Provides search by tags functionality
 "Plugin 'jaxbot/brolink.vim.git' "Live browser editing in VIM
 Plugin 'Chiel92/vim-autoformat' "Auto-format for different languages
 Plugin 'mattn/emmet-vim' "Zen style abbreviations in HTML
@@ -29,18 +29,21 @@ Plugin 'mattn/emmet-vim' "Zen style abbreviations in HTML
 Plugin 'bling/vim-airline' "Provides a bottom bar with useful data
 Plugin 'Yggdroot/indentLine' "Adds visual indentation lines
 Plugin 'terryma/vim-multiple-cursors' "Adds multiple cursor support (like in Sublime Text)
-Plugin 'airblade/vim-gitgutter' "Adds signs whether a certain line has been modified or not
+"Plugin 'airblade/vim-gitgutter' "Adds signs whether a certain line has been modified or not
 Plugin 'Shougo/vimproc.vim' "Utility methods required for Vimshell
 Plugin 'Shougo/vimshell.vim' "Includes a shell into VIM
+Plugin 'fatih/vim-go' "Add golang support
+Plugin 'ervandew/supertab' "Add supertab
 
 call vundle#end()
 filetype plugin indent on
 
-" 2.- Basic configuration ################################
-let &t_Co=256 "Enable 256 colors
-set background=dark
+" 1.- Set Theme.
+let &t_Co=256
+syntax enable
 colorscheme gruvbox
 set guifont=Inconsolata\ 12
+set background=dark
 
 syntax on "Enable syntax highlighting
 
@@ -60,6 +63,7 @@ set wildmenu
 set mouse=a
 set pastetoggle=<F3>
 set laststatus=2
+set ttyfast "Allows smooth scrolling (No more delays)
 
 " 3.- Mappings ###########################################
 :let mapleader = ","
@@ -126,26 +130,16 @@ set errorformat=%-P%f,
 """"""""""""""""""""""""""""""
 " Ultisnips
 """"""""""""""""""""""""""""""
-function! LoadUltisnips()
-  if has("python")
-    runtime bundle/ultisnips_rep/plugin/UltiSnips.vim
-    exec "set runtimepath+=" . g:p0 . "/bundle/ultisnips_rep"
-    if has("autocmd")
-      autocmd FileType * call UltiSnips_FileTypeChanged()
-      autocmd BufNewFile,BufRead *.snippets setf snippets
-    endif
-    call UltiSnips_FileTypeChanged()
-  endif
-  nnoremap <f10> :call UltiSnips_ListSnippets()<cr>
-endfunction
-nnoremap <f10> :call LoadUltisnips()<cr>:call UltiSnips_ListSnippets()<CR>
-inoremap <f10> <esc>:call LoadUltisnips()<cr>a<c-r>=UltiSnips_ExpandSnippet()<cr>
 
-let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-"If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>""
 
 """"""""""""""""""""""""""""""
 " airline

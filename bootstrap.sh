@@ -1,11 +1,13 @@
 #!/bin/bash
 
+set -e
+
 #
 # Bootstrap for setting remote development environments.
 # Version 0.0.4
 echo "************************************************"
 echo "*         Dotfiles bootstrap file (Development)"
-echo "*         Version: 0.0.4"
+echo "*         Version: 0.0.5"
 echo "*         Author: Jose Vidal"
 echo "*         License: MIT"
 echo "************************************************"
@@ -14,10 +16,14 @@ CUR_PWD=`pwd -P`
 
 if [[ $1 == '' ]]
 then
-    echo "Please specify either 'vim' or 'tmux'"
+    echo "Please specify either 'vim' or 'tmux (or 'all' for installing the full dev environment)'"
+    exit 1
 fi
 
-if [[ -d .vim  &&  $1 == 'vim' ]]
+# Installing "common" tools
+sudo apt-get -y install ack-grep
+
+if [[ -d .vim  && ($1 == 'vim' || $1 == 'all') ]]
 then
     echo "1) Installing VIM"
     sudo apt-get install -y vim exuberant-ctags python-autopep8 npm nodejs gcc
@@ -51,7 +57,7 @@ then
     cd $CUR_PWD
 fi
 
-if [[ -d .tmux/ && $1 == 'tmux' ]]
+if [[ -d .tmux && ($1 == 'tmux' || $1 == 'all') ]]
 then
     echo "1) Installing TMUX and TEAMOCIL"
     # Install ruby 2.0 and rubygems.
