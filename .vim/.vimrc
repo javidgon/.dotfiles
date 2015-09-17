@@ -35,6 +35,8 @@ Plugin 'Shougo/vimshell.vim' "Includes a shell into VIM
 Plugin 'fatih/vim-go' "Add golang support
 Plugin 'ervandew/supertab' "Add supertab
 Plugin 'benmills/vimux' "Add small pane where you can run cmds
+Plugin 'tpope/vim-obsession' "Save vim sessions automatically
+Plugin 'morhetz/gruvbox' "Incredible theme
 
 call vundle#end()
 filetype plugin indent on

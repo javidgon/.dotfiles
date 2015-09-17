@@ -19,7 +19,16 @@ then
 fi
 
 # Installing "common" tools
+echo "* ENVIRONMENT: Installing ack-grep..."
 sudo apt-get -y install ack-grep
+
+# Set 256 colors $TERM in case it's not
+if [[ $(tput colors) = 8 ]]
+then
+    echo "* ENVIRONMENT: Setting up 256 colors..."
+    sudo echo "export TERM=screen-256color" >> ~/.bashrc
+    source ~/.bashrc
+fi
 
 if [[ -d .vim  && ($1 == 'vim' || $1 == 'all') ]]
 then
@@ -62,7 +71,12 @@ if [[ -d .tmux && ($1 == 'tmux' || $1 == 'all') ]]
 then
     echo "1) Installing TMUX and TEAMOCIL"
     # Install ruby 2.0 and rubygems.
-    sudo apt-get install -y tmux rubygems
+    # Steps for installing tmux 2.0 (http://stackoverflow.com/a/25952511)
+    sudo apt-get update
+    sudo apt-get install -y python-software-properties software-properties-common
+    sudo add-apt-repository -y ppa:pi-rho/dev
+    sudo apt-get update
+    sudo apt-get install -y tmux=2.0-1~ppa1~t rubygems
     cd /tmp
     wget http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p481.tar.gz
     tar -xvzf ruby-2.0.0-p481.tar.gz
