@@ -83,6 +83,9 @@ then
     echo "* TMUX: Create symbolic link of '~/.tmux.conf' folder"
     ln -s -f $(pwd)/.tmux/ ~/
 
+    # Install Tmux plugins manager.
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
     if [[ -d .teamocil/ ]]
     then
         if [[ -d ~/.teamocil ]]
