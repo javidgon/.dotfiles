@@ -10,25 +10,17 @@ echo "*         Author: Jose Vidal"
 echo "*         License: MIT"
 echo "************************************************"
 
-CUR_PWD=`pwd -P` 
+CUR_PWD=`pwd -P`
 
 if [[ $1 == '' ]]
 then
-    echo "Please specify either 'vim' or 'tmux (or 'all' for installing the full dev environment)'"
+    echo "Please specify either 'vim', 'tmux' or zsh' (or 'all' for installing the full dev environment)'"
     exit 1
 fi
 
 # Installing "common" tools
 echo "* ENVIRONMENT: Installing ack-grep..."
 sudo apt-get -y install ack-grep
-
-# Set 256 colors $TERM in case it's not
-if [[ $(tput colors) = 8 ]]
-then
-    echo "* ENVIRONMENT: Setting up 256 colors..."
-    sudo echo "export TERM=screen-256color" >> ~/.bashrc
-    source ~/.bashrc
-fi
 
 if [[ -d .vim  && ($1 == 'vim' || $1 == 'all') ]]
 then
@@ -84,7 +76,7 @@ then
     ./configure --prefix=/usr/local
     make
     sudo make install
-    cd $CUR_PWD 
+    cd $CUR_PWD
 
     # Install required gems.
     sudo gem install teamocil
@@ -110,4 +102,14 @@ then
         echo "* TEAMOCIL: Create symbolic link of '~/.teamocil' folder"
         ln -s -f $(pwd)/.teamocil/ ~/
     fi
+fi
+
+if [[ $1 == 'zsh' || $1 == 'all' ]]
+then
+    echo "1) Installing ZSH and Oh-my-zsh"
+    sudo apt-get install -y zsh
+    echo "* ZSH: Configure it as the default shell"
+    chsh -s $(which zsh)
+    echo "* ZSH: Install Oh-my-zsh"
+    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
