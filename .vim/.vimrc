@@ -1,6 +1,6 @@
 " @Author: Jose Vidal
-" @Version: 1.0.3
-" @Last Update: 8/8/2013
+" @Version: 1.1
+" @Last Update: 6/10/2015
 
 " 1.- Plugins ############################################
 filetype off
@@ -34,9 +34,10 @@ Plugin 'Shougo/vimproc.vim' "Utility methods required for Vimshell
 Plugin 'Shougo/vimshell.vim' "Includes a shell into VIM
 Plugin 'fatih/vim-go' "Add golang support
 Plugin 'ervandew/supertab' "Add supertab
-Plugin 'benmills/vimux' "Add small pane where you can run cmds
+Plugin 'benmills/vimux' "Add small pane where you can run cmds (TMUX integration)
 Plugin 'tpope/vim-obsession' "Save vim sessions automatically
 Plugin 'morhetz/gruvbox' "Incredible theme
+Plugin 'elixir-lang/vim-elixir' "Elixir lang support
 
 call vundle#end()
 filetype plugin indent on

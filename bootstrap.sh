@@ -109,7 +109,11 @@ then
     echo "1) Installing ZSH and Oh-my-zsh"
     sudo apt-get install -y zsh
     echo "* ZSH: Configure it as the default shell"
-    chsh -s $(which zsh)
+    sudo chsh -s $(which zsh)
     echo "* ZSH: Install Oh-my-zsh"
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    echo "* ZSH: Create symbolic link of '~/.zshrc'"
+    ln -s -f $(pwd)/.zsh/.zshrc/ ~/
+    # Source it, so it's ready
+    source ~/.zshrc
 fi
