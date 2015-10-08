@@ -93,6 +93,7 @@ nnoremap ;q :q
 nnoremap :Q :q
 nnoremap ;w :w
 nnoremap :W :w
+nnoremap <leader><leader> <C-w><C-w>
 nnoremap <C-t> :tabnew<CR>
 nnoremap <C-x> :tabclose<CR>
 nnoremap <C-z> :q<CR>

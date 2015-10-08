@@ -49,7 +49,9 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git python pep8 virtualenvwrapper z)
+plugins=(git python pep8 virtualenvwrapper z fasd)
+
+eval "$(fasd --init auto)"
 
 # User configuration
 
@@ -59,15 +61,21 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/g
 source $ZSH/oh-my-zsh.sh
 
 # -----------------------------------------------------------------------------------------------------------------
+# Fasd aliases
+# -----------------------------------------------------------------------------------------------------------------
+
+alias v='f -e vim'
+
+# -----------------------------------------------------------------------------------------------------------------
 # Git aliases
 # -----------------------------------------------------------------------------------------------------------------
 
 alias gs='git status'
 alias gb='git branch'
 alias gd='git diff --color'
-alias gm='git commit -m'
-alias gpul='git pull'
-alias gpus='git push'
+alias gcm='git commit -m'
+alias gpull='git pull'
+alias gpush='git push'
 alias gl='git log'
 alias gcl='git clone'
 
@@ -76,8 +84,8 @@ alias gcl='git clone'
 # Django aliases
 # -----------------------------------------------------------------------------------------------------------------
 
-alias ms='python manage.py shell'
-alias mr='python manage.py runserver 0.0.0.0:8000'
+alias ds='python manage.py shell'
+alias dr='python manage.py runserver 0.0.0.0:8000'
 alias p='python'
 
 
@@ -86,10 +94,6 @@ alias p='python'
 # -----------------------------------------------------------------------------------------------------------------
 
 alias ni='npm install'
-
-# -----------------------------------------------------------------------------------------------------------------
-# Exports
-# -----------------------------------------------------------------------------------------------------------------
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -100,3 +104,20 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
    export EDITOR='vim'
 fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
