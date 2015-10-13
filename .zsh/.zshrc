@@ -49,7 +49,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git python pep8 virtualenvwrapper z fasd)
+plugins=(git python pep8 virtualenvwrapper fasd)
 
 eval "$(fasd --init auto)"
 
@@ -64,7 +64,9 @@ source $ZSH/oh-my-zsh.sh
 # Fasd aliases
 # -----------------------------------------------------------------------------------------------------------------
 
+alias z='fasd_cd -d'
 alias v='f -e vim'
+alias c='f -e cat'
 
 # -----------------------------------------------------------------------------------------------------------------
 # Git aliases
