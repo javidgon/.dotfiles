@@ -29,9 +29,10 @@ if hash fasd 2>/dev/null; then
 else
     echo "* FASD: Installing fasd..."
     cd /tmp
-    wget https://github.com/clvv/fasd/tarball/1.0.1
-    tar zxvf 1.0.1
-    cd 1.0.1
+    wget https://github.com/clvv/fasd/tarball/1.0.1 -O fasd.tar.gz
+    tar zxvf fasd.tar.gz
+    # This weird folder contains the fasd lib. Don't ask about the naming
+    cd clvv-fasd-4822024
     sudo make install
     cd $CUR_PWD
 fi
