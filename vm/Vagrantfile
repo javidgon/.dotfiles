@@ -1,0 +1,27 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+
+  # Use Ubuntu 14.04 LTS box
+  config.vm.box = "trusty64"
+  config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
+
+  # Use 2 CPUs and 3 GByte RAM
+  config.vm.provider "virtualbox" do |vbox|
+    vbox.cpus = 2
+    vbox.memory = 2048
+  end
+
+  # Configure web application network
+  config.vm.network "forwarded_port", guest: 8000, host: 8000
+  config.vm.network "forwarded_port", guest: 4000, host: 4000
+
+  # Initialize web application
+  config.vm.provision "shell", path: "../bootstrap.sh", args: "all"
+end

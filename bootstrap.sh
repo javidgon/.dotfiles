@@ -14,13 +14,15 @@ CUR_PWD=`pwd -P`
 
 if [[ $1 == '' ]]
 then
-    echo "Please specify either 'vim', 'tmux' or zsh' (or 'all' for installing the full dev environment)'"
+    echo "Please specify either 'vim' or 'tmux' (or 'all' for installing the full dev environment)'"
     exit 1
 fi
 
 sudo apt-get update
 # Installing "common" tools
 echo "0) Install COMMON tools"
+echo "* GIT: Installing git..."
+sudo apt-get -y install git
 echo "* ACK-GREP: Installing ack-grep..."
 sudo apt-get -y install ack-grep
 # Check if fasd is installed
@@ -139,16 +141,4 @@ then
         echo "* TEAMOCIL: Create symbolic link of '~/.teamocil' folder"
         ln -s -f ${CUR_PWD}/.teamocil/ ~/
     fi
-fi
-
-if [[ $1 == 'zsh' || $1 == 'all' ]]
-then
-    echo "1) Installing ZSH and Oh-my-zsh"
-    sudo apt-get install -y zsh
-    echo "* ZSH: Configure it as the default shell"
-    sudo chsh -s $(which zsh)
-    echo "* ZSH: Install Oh-my-zsh"
-    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    echo "* ZSH: Create symbolic link of '~/.zshrc'"
-    ln -s -f ${CUR_PWD}/.zsh/.zshrc ~/
 fi
